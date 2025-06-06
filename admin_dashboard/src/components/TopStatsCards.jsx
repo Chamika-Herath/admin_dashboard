@@ -1,41 +1,38 @@
-import { SimpleGrid, Box, Text, Heading } from '@chakra-ui/react'
+import { Box, SimpleGrid, Text, useColorModeValue } from '@chakra-ui/react';
 
-const stats = [
-  {
-    label: 'Daily active users',
-    value: '1051',
-    date: '18 Mar 2020',
-  },
-  {
-    label: 'Monthly Active Users',
-    value: '1051',
-    date: '18 Mar 2020',
-  },
-  {
-    label: 'Daily Time Per Active User',
-    value: '1051',
-    date: '18 Mar 2020',
-  },
-]
+const data = [
+  { title: 'Daily active users', value: 1051, date: '18 Mar 2020' },
+  { title: 'Monthly Active Users', value: 1051, date: '18 Mar 2020' },
+  { title: 'Daily Time Per Active User', value: 1051, date: '18 Mar 2020' },
+];
 
 const TopStatsCards = () => {
+  const cardBg = useColorModeValue('white', 'gray.800');
+  const textColor = useColorModeValue('gray.800', 'white');
+  const subTextColor = useColorModeValue('gray.600', 'gray.400');
+
   return (
-    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
-      {stats.map((stat, index) => (
+    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6}>
+      {data.map((item, index) => (
         <Box
           key={index}
-          bg="white"
+          p={5}
           borderRadius="md"
           boxShadow="md"
-          p={4}
+          bg={cardBg}
+          color={textColor}
         >
-          <Heading size="lg">{stat.value}</Heading>
-          <Text fontWeight="semibold">{stat.label}</Text>
-          <Text fontSize="sm" color="gray.500">{stat.date}</Text>
+          <Text fontSize="2xl" fontWeight="bold">
+            {item.value}
+          </Text>
+          <Text>{item.title}</Text>
+          <Text fontSize="sm" mt={2} color={subTextColor}>
+            {item.date}
+          </Text>
         </Box>
       ))}
     </SimpleGrid>
-  )
-}
+  );
+};
 
-export default TopStatsCards
+export default TopStatsCards;
