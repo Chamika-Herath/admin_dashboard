@@ -1,60 +1,62 @@
 import {
   Box,
   Flex,
-  Text,
-  Heading,
-  SimpleGrid,
+  useColorModeValue,
   Divider,
-  VStack,
-  HStack,
-} from '@chakra-ui/react'
-import Sidebar from './components/Sidebar'
-import TopStatsCards from './components/TopStatsCards'
-import UserActivityChart from './components/UserActivityChart'
-import PieChartSection from './components/PieChartSection'
-import ActivityLog from './components/ActivityLog'
+  SimpleGrid,
+  Heading,
+} from '@chakra-ui/react';
+import Sidebar from './components/Sidebar';
+import TopStatsCards from './components/TopStatsCards';
+import UserActivityChart from './components/UserActivityChart';
+import PieChartSection from './components/PieChartSection';
+import ActivityLog from './components/ActivityLog';
+import ColorModeSwitcher from './components/ColorModeSwitcher';
 
 function App() {
-  return (
-    <Flex minH="100vh" bg="gray.50">
-      {/* Sidebar */}
-      <Sidebar />
+  const bg = useColorModeValue('gray.50', 'gray.800');
+  const cardBg = useColorModeValue('white', 'gray.700');
+  const textColor = useColorModeValue('gray.800', 'white');
 
-      {/* Main content */}
-      <Box flex="1" p={6} overflowY="auto">
-        {/* Top Stats Cards */}
-        <TopStatsCards />
+  return (
+    <Box minH="100vh" bg={bg}>
+      <Sidebar />
+      <ColorModeSwitcher />
+
+      <Box
+        ml={{ base: 0, md: '250px' }}
+        p={{ base: 4, md: 6 }}
+        color={textColor}
+      >
+        <TopStatsCards cardBg={cardBg} textColor={textColor} />
 
         <Divider my={6} />
 
-        {/* Charts Section */}
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
-          {/* Line Chart */}
-          <Box bg="white" borderRadius="md" boxShadow="md" p={4}>
-            <Heading size="md" mb={4}>
+          <Box bg={cardBg} borderRadius="md" boxShadow="md" p={4}>
+            <Heading size="md" mb={4} color={textColor}>
               User activity
             </Heading>
-            <UserActivityChart />
+            <UserActivityChart textColor={textColor} />
           </Box>
 
-          {/* Pie Chart and Auth Info */}
-          <Box bg="white" borderRadius="md" boxShadow="md" p={4}>
-            <PieChartSection />
+          <Box bg={cardBg} borderRadius="md" boxShadow="md" p={4}>
+            <PieChartSection textColor={textColor} />
           </Box>
         </SimpleGrid>
 
         <Divider my={6} />
+        
 
-        {/* Activity Log */}
-        <Box bg="white" borderRadius="md" boxShadow="md" p={4} mt={4}>
-          <Heading size="md" mb={4}>
+        <Box bg={cardBg} borderRadius="md" boxShadow="md" p={4} mt={4}>
+          <Heading size="md" mb={4} color={textColor}>
             Activity log
           </Heading>
-          <ActivityLog />
+          <ActivityLog textColor={textColor} />
         </Box>
       </Box>
-    </Flex>
-  )
+    </Box>
+  );
 }
 
-export default App
+export default App;
